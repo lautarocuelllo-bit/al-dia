@@ -26,7 +26,7 @@ jobs:
     runs-on: ${{ matrix.plataforma }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Dependencias de Linux
         if: matrix.plataforma == 'ubuntu-22.04'
@@ -34,9 +34,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libdbus-1-dev
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          # La misma versión con la que se generó package-lock.json
+          node-version: 24
           cache: npm
 
       - uses: dtolnay/rust-toolchain@stable
@@ -48,7 +49,9 @@ jobs:
         with:
           workspaces: './src-tauri -> target'
 
-      - run: npm ci
+      # npm install y no npm ci: el lockfile generado en Windows no trae las dependencias opcionales
+      # de otros sistemas (npm/cli#4828) y npm ci falla en macOS y Linux
+      - run: npm install --no-audit --no-fund
 
       - uses: tauri-apps/tauri-action@v0
         env:
