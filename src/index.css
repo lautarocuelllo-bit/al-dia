@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-fondo: var(--c-fondo);
+  --color-panel: var(--c-panel);
+  --color-panel-2: var(--c-panel-2);
+  --color-borde: var(--c-borde);
+  --color-texto: var(--c-texto);
+  --color-suave: var(--c-suave);
+  --color-acento: var(--c-acento);
+  --color-acento-fondo: var(--c-acento-fondo);
+  --color-sobre-acento: var(--c-sobre-acento);
+  --color-alerta: var(--c-alerta);
+  --color-alerta-fondo: var(--c-alerta-fondo);
+  --color-pronto: var(--c-pronto);
+  --color-pronto-fondo: var(--c-pronto-fondo);
+}
+
+/* Claro */
+:root {
+  --c-fondo: #f6f6f4;
+  --c-panel: #ffffff;
+  --c-panel-2: #efefec;
+  --c-borde: #e3e3df;
+  --c-texto: #18181b;
+  --c-suave: #6b6b72;
+  --c-acento: #0f7a52;
+  --c-acento-fondo: #e3f3eb;
+  --c-sobre-acento: #ffffff;
+  --c-alerta: #c2410c;
+  --c-alerta-fondo: #fdeee5;
+  --c-pronto: #a16207;
+  --c-pronto-fondo: #fbf3dc;
+  color-scheme: light;
+}
+
+/* Oscuro */
+.dark {
+  --c-fondo: #111113;
+  --c-panel: #19191c;
+  --c-panel-2: #222226;
+  --c-borde: #2c2c31;
+  --c-texto: #f1f1f3;
+  --c-suave: #9a9aa3;
+  --c-acento: #3ccf8e;
+  --c-acento-fondo: #15291f;
+  --c-sobre-acento: #06140d;
+  --c-alerta: #fb8a5a;
+  --c-alerta-fondo: #2e1a12;
+  --c-pronto: #f2c14e;
+  --c-pronto-fondo: #2b2412;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-fondo);
+  color: var(--c-texto);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  /* Es una app: el texto no se selecciona salvo donde tiene sentido (consignas, avisos) */
+  user-select: none;
+  overflow: hidden;
+}
+
+.seleccionable {
+  user-select: text;
+}
+
+/* Barras de desplazamiento finas */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-borde) transparent;
+}
+
+@utility boton {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+}
+@utility boton-primario {
+  @apply boton bg-acento text-sobre-acento hover:brightness-110;
+}
+@utility boton-secundario {
+  @apply boton border border-borde bg-panel text-texto hover:bg-panel-2;
+}
+@utility boton-icono {
+  @apply grid size-8 place-items-center rounded-md text-suave transition hover:bg-panel-2 hover:text-texto active:scale-95;
+}
+@utility campo {
+  @apply w-full rounded-lg border border-borde bg-panel px-3 py-2 text-sm outline-none transition placeholder:text-suave/70 focus:border-acento focus:ring-2 focus:ring-acento/20;
+}
+@utility etiqueta {
+  @apply mb-1 block text-xs font-medium text-suave;
+}
+
+/* HTML de las consignas y avisos del campus */
+.contenido-campus {
+  user-select: text;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.contenido-campus p,
+.contenido-campus ul,
+.contenido-campus ol {
+  margin: 0 0 0.6em;
+}
+.contenido-campus ul,
+.contenido-campus ol {
+  padding-left: 1.25em;
+}
+.contenido-campus ul {
+  list-style: disc;
+}
+.contenido-campus ol {
+  list-style: decimal;
+}
+.contenido-campus a {
+  color: var(--c-acento);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.contenido-campus img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.contenido-campus table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.contenido-campus td,
+.contenido-campus th {
+  border: 1px solid var(--c-borde);
+  padding: 4px 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

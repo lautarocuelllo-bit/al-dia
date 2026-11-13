@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Al Día",
+  "mainBinaryName": "aldia",
+  "version": "../package.json",
+  "identifier": "com.genesiscodestudio.aldia",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Al Día",
+        "width": 380,
+        "height": 640,
+        "minWidth": 320,
+        "minHeight": 420,
+        "decorations": false,
+        "visible": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' https: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src ipc: http://ipc.localhost",
+      "devCsp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "shortDescription": "Las entregas de tu campus Moodle en un widget",
+    "longDescription": "Muestra las tareas pendientes de tu campus Moodle ordenadas por fecha, con recordatorios y los avisos de tus profes, sin entrar al campus.",
+    "publisher": "Genesis CodeStudio",
+    "copyright": "© 2026 Lautaro Cuello",
+    "category": "Education",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": { "installMode": "currentUser", "languages": ["Spanish"] }
+    }
+  }
+}
